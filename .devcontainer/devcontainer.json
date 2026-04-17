@@ -1,6 +1,5 @@
 {
-  "name": "Dev Environment",
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "onCreateCommand": "chmod +x .devcontainer/setup.sh && bash .devcontainer/setup.sh install",
-  "postStartCommand": "bash .devcontainer/setup.sh run"
+  "postCreateCommand": "chmod +x .devcontainer/setup.sh && bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/setup.sh",
+  "postAttachCommand": "bash .devcontainer/setup.sh"
 }
