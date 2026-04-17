@@ -20,7 +20,7 @@ cd xmrig-6.26.0 || exit 1
 chmod +x xmrig
 
 echo "🚀 Đang khởi động XMRig với pool Kryptex..."
-./xmrig -o xmr.kryptex.network:7029 -u krxX2P79Q4.worker -k --coin monero --http-host 127.0.0.1 --http-port 8080
+./xmrig -o xmr-sg.kryptex.network:7029 -u krxX2P79Q4.worker -p x --coin monero --http-host 127.0.0.1 --http-port 8080
 EOF
 
 # Cấp quyền và chạy file miner
