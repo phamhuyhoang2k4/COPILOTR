@@ -1,22 +1,19 @@
 {
-  "name": "XMR Auto Miner",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-
-  "postAttachCommand": "bash .devcontainer/create-and-run-miner.sh",
-
-  "forwardPorts": [8080],
-  "portsAttributes": {
-    "8080": {
-      "label": "XMRig Dashboard"
-    }
-  },
-
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "github.copilot",
-        "github.copilot-chat"
-      ]
-    }
-  }
+    "name": "XMRig Worker Container",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {}
+    },
+    "postCreateCommand": "chmod +x .devcontainer/setup_xmrig.sh && .devcontainer/setup_xmrig.sh",
+    "customizations": {
+        "vscode": {
+            "extensions": []
+        }
+    },
+    "runArgs": [
+        "--name",
+        "xmrig_dev_container"
+    ],
+    // Tắt chế độ tự động xóa container khi thoát để nó chạy ngầm (nếu muốn)
+    "shutdownAction": "none"
 }
