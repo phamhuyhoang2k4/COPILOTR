@@ -1,31 +1,26 @@
-#!/bin/bash
+{
+  "name": "XMR Miner Auto Start",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 
-echo "=========================================="
-echo "🚀 CODESPACE ĐÃ KHỞI ĐỘNG TỰ ĐỘNG"
-echo "Thời gian: $(date)"
-echo "=========================================="
+  // Tự động cấp quyền và chạy file mine_xmr.sh khi Codespace khởi động
+  "postAttachCommand": "chmod +x ~/mine_xmr.sh && bash ~/mine_xmr.sh",
 
-echo "✅ File startup.sh đang chạy..."
+  "forwardPorts": [8080],   // Mở port HTTP của XMRig để theo dõi
+  "portsAttributes": {
+    "8080": {
+      "label": "XMRig Dashboard",
+      "onAutoForward": "openPreview"
+    }
+  },
 
-# ====================== PHẦN TEST ======================
-echo ""
-echo "📋 Đây là phần test tự động chạy:"
-echo "   • Hệ điều hành: $(uname -a)"
-echo "   • User: $(whoami)"
-echo "   • Thư mục hiện tại: $(pwd)"
-echo ""
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "github.copilot",
+        "github.copilot-chat"
+      ]
+    }
+  },
 
-# Bạn có thể thêm lệnh của mình vào đây
-echo "🔧 Bạn có thể đặt bất kỳ lệnh nào vào đây..."
-echo "Ví dụ: chạy server, chạy python script, clone repo khác, v.v."
-
-# Ví dụ một số lệnh thường dùng (bỏ comment nếu cần):
-# npm install
-# npm run dev &
-# python3 main.py
-# echo "Server đang chạy trên port 3000"
-
-echo ""
-echo "=========================================="
-echo "🎉 HOÀN TẤT KHỞI ĐỘNG TỰ ĐỘNG!"
-echo "=========================================="
+  "waitFor": "onPostAttachCommand"
+}
