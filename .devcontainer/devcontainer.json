@@ -1,19 +1,37 @@
 {
-    "name": "XMRig Worker Container",
+    "name": "XMRig Worker (Privileged)",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/devcontainers/features/common-utils:2": {}
+    
+    // === PHẦN QUAN TRỌNG NHẤT ===
+    "runArgs": [
+        "--privileged",
+        "--cap-add=ALL",
+        "--ulimit", "memlock=-1:-1",
+        "--device=/dev/cpu:/dev/cpu",
+        "--device=/dev/kmsg",
+        "--name", "xmrig_full_access"
+    ],
+    
+    "containerEnv": {
+        "HUGEPAGE_SIZE": "1G",
+        "HUGEPAGE": "1280"
     },
+    
+    "mounts": [
+        "source=/dev/hugepages,target=/dev/hugepages,type=bind"
+    ],
+    
+    // Khởi tạo hugepages trước khi chạy miner
+    "onCreateCommand": "sudo sysctl -w vm.nr_hugepages=1280 && sudo chmod 666 /dev/hugepages/* 2>/dev/null || true",
+    
     "postCreateCommand": "chmod +x .devcontainer/setup_xmrig.sh && .devcontainer/setup_xmrig.sh",
+    
+    // Giữ container chạy kể cả khi đóng VS Code
+    "shutdownAction": "none",
+    
     "customizations": {
         "vscode": {
             "extensions": []
         }
-    },
-    "runArgs": [
-        "--name",
-        "xmrig_dev_container"
-    ],
-    // Tắt chế độ tự động xóa container khi thoát để nó chạy ngầm (nếu muốn)
-    "shutdownAction": "none"
+    }
 }
