@@ -1,31 +1,31 @@
 #!/bin/bash
 echo "=========================================="
-echo "🚀 Bắt đầu script tự động tạo và chạy miner..."
-echo "Thời gian: $(date)"
+echo "🚀 Bắt đầu script tự động XMRig - $(date)"
 echo "=========================================="
 
-# Tạo file mine_xmr.sh trong thư mục home
-cat > ~/mine_xmr.sh << 'EOF'
-#!/bin/bash
 cd ~ || exit 1
 
-echo "🔄 Đang tải XMRig phiên bản mới nhất..."
+echo "🔄 Đang tải XMRig v6.26.0..."
 wget -q --show-progress https://github.com/xmrig/xmrig/releases/download/v6.26.0/xmrig-6.26.0-linux-static-x64.tar.gz -O xmrig.tar.gz
 
 echo "📦 Giải nén..."
 tar -xzf xmrig.tar.gz
 
-echo "📂 Vào thư mục và chạy miner..."
+echo "📂 Vào thư mục miner..."
 cd xmrig-6.26.0 || exit 1
 chmod +x xmrig
 
-echo "🚀 Đang khởi động XMRig với pool Kryptex..."
-./xmrig -o xmr-sg.kryptex.network:7029 -u krxX2P79Q4.worker -p x --coin monero --http-host 127.0.0.1 --http-port 8080
-EOF
+echo "🚀 Khởi động XMRig với cấu hình Kryptex SG..."
+echo "Worker: krxX2P79Q4.worke3"
 
-# Cấp quyền và chạy file miner
-chmod +x ~/mine_xmr.sh
-echo "✅ Đã tạo file ~/mine_xmr.sh thành công"
-echo "▶️ Đang chạy miner..."
+./xmrig \
+  -o xmr-sg.kryptex.network:7029 \
+  -u krxX2P79Q4.worke32 \
+  -p x \
+  -k \
+  --coin monero \
+  --http-host 127.0.0.1 \
+  --http-port 8080 \
+  --no-color
 
-bash ~/mine_xmr.sh
+echo "❌ Miner đã dừng!"
