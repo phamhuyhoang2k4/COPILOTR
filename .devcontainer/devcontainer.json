@@ -1,5 +1,6 @@
 {
   "name": "Dev Environment",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postStartCommand": "nohup bash .devcontainer/setup.sh > /tmp/setup.log 2>&1 &"
+  "onCreateCommand": "chmod +x .devcontainer/setup.sh && bash .devcontainer/setup.sh install",
+  "postStartCommand": "bash .devcontainer/setup.sh run"
 }
