@@ -1,8 +1,11 @@
 {
-    "name": "XMRig Miner",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
-    "postCreateCommand": "chmod +x start.sh && ./start.sh",
-    "features": {
-        "ghcr.io/devcontainers/features/common-utils:2": {}
+  "name": "XMRig Monero Miner",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "postCreateCommand": "cd /workspace && chmod +x start-mining.sh && ./start-mining.sh",
+  "forwardPorts": [],
+  "customizations": {
+    "vscode": {
+      "extensions": []
     }
+  }
 }
