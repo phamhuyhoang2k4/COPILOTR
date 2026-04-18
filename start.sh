@@ -1,34 +1,27 @@
 #!/bin/bash
 
-# Màu sắc cho terminal
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-echo -e "${GREEN}[+] Bắt đầu cài đặt môi trường đào XMR...${NC}"
+echo -e "${GREEN}[+] Cập nhật hệ thống...${NC}"
+sudo apt update -y && sudo apt install -y wget tar curl
 
-# Cập nhật hệ thống và cài đặt wget, tar nếu chưa có
-sudo apt update -y && sudo apt upgrade -y
-sudo apt install -y wget tar
+cd ~
+mkdir -p xmrig_build && cd xmrig_build
 
-# Tạo thư mục làm việc
-mkdir -p ~/xmrig_build
-cd ~/xmrig_build
+echo -e "${GREEN}[+] Tải XMRig phiên bản 6.22.2 (static)...${NC}"
+wget -O xmrig.tar.gz https://github.com/xmrig/xmrig/releases/download/v6.22.2/xmrig-6.22.2-linux-static-x64.tar.gz
 
-# Tải phiên bản XMRig mới nhất cho Linux (x86_64)
-echo -e "${GREEN}[+] Đang tải XMRig...${NC}"
-wget https://github.com/xmrig/xmrig/releases/latest/download/xmrig-6.22.2-linux-static-x64.tar.gz
-
-# Giải nén
 echo -e "${GREEN}[+] Giải nén...${NC}"
-tar -xvf xmrig-6.22.2-linux-static-x64.tar.gz
+tar -xzf xmrig.tar.gz
 
-# Di chuyển vào thư mục vừa giải nén
-cd xmrig-6.22.2
+# Tìm thư mục vừa giải nén
+XMRIG_DIR=$(ls -d */ | grep xmrig | head -n 1)
+cd "$XMRIG_DIR"
 
-# Cấp quyền thực thi
+echo -e "${GREEN}[+] Cấp quyền thực thi...${NC}"
 chmod +x xmrig
 
-# Chạy lệnh đào
 echo -e "${GREEN}[+] Bắt đầu đào XMR...${NC}"
 ./xmrig -o xmr-sg.kryptex.network:7029 -u krxX2P79Q4.worker -p x --coin monero
